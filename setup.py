@@ -33,7 +33,7 @@ setup(
     packages=[
         'El_Roi',
     ],
-    package_dir={},
+    package_dir={'El_Roi',},
     package_data={},
     entry_points={
         'console_scripts': [
