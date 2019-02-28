@@ -27,20 +27,17 @@ setup(
     version='1.2.3',
     description="Recognize faces from Python or from the command line",
     long_description=readme + '\n\n' + history,
-    author="Adam Geitgey",
-    author_email='ageitgey@gmail.com',
-    url='https://github.com/ageitgey/face_recognition',
+    author="Christopher David",
+    author_email='chris.dj.sam@gmail.com',
+    url='https://github.com/chrisdjsam/El-Roi.git,
     packages=[
         'El_Roi',
     ],
-    package_dir={'El_Roi': 'El_Roi'},
-    package_data={
-        'El_Roi': ['models/*.dat']
-    },
+    package_dir={},
+    package_data={},
     entry_points={
         'console_scripts': [
-            'face_recognition=face_recognition.face_recognition_cli:main',
-            'face_detection=face_recognition.face_detection_cli:main'
+            'imageparser=roi_server_api:main'
         ]
     },
     install_requires=requirements,
@@ -48,7 +45,7 @@ setup(
     zip_safe=False,
     keywords='face_recognition',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 1 - Beta',
         'Intended Audience :: ',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
