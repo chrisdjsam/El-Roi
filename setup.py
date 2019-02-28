@@ -29,7 +29,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author="Christopher David",
     author_email='chris.dj.sam@gmail.com',
-    url='https://github.com/chrisdjsam/El-Roi.git,
+    url='https://github.com/chrisdjsam/El-Roi.git',
     packages=[
         'El_Roi',
     ],
