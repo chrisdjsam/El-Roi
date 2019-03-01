@@ -58,4 +58,17 @@ test_requirements = [
 #     tests_require=test_requirements
 # )
 
-setuptools.setup()
+setuptools.setup(
+    name='El_Roi',
+    version='1.2.3',
+    packages=[
+        'El_Roi',
+    ],
+    package_dir={'El_Roi',},
+    entry_points={
+        'console_scripts': [
+            'imageparser=roi_server_api:main'
+        ]
+    },
+    install_requires=requirements
+)
