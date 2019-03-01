@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+import setuptools
 
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
+# with open('README.rst') as readme_file:
+#     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
+# with open('HISTORY.rst') as history_file:
+#     history = history_file.read()
 
 requirements = [
     'face_recognition_models>=0.3.0',
@@ -15,6 +15,9 @@ requirements = [
     'dlib>=19.7',
     'numpy',
     'Pillow'
+    'scikit-learn>=0.20.2',
+    'jsonpickle>=1.1',
+    'scipy>=0.17.0'
 ]
 
 test_requirements = [
@@ -22,35 +25,37 @@ test_requirements = [
     'flake8==2.6.0'
 ]
 
-setup(
-    name='El_Roi',
-    version='1.2.3',
-    description="Recognize faces from Python or from the command line",
-    long_description=readme + '\n\n' + history,
-    author="Christopher David",
-    author_email='chris.dj.sam@gmail.com',
-    url='https://github.com/chrisdjsam/El-Roi.git',
-    packages=[
-        'El_Roi',
-    ],
-    package_dir={'El_Roi',},
-    package_data={},
-    entry_points={
-        'console_scripts': [
-            'imageparser=roi_server_api:main'
-        ]
-    },
-    install_requires=requirements,
-    license="MIT license",
-    zip_safe=False,
-    keywords='face_recognition',
-    classifiers=[
-        'Development Status :: 1 - Beta',
-        'Intended Audience :: ',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3.4'
-    ],
-    test_suite='',
-    tests_require=test_requirements
-)
+# setup(
+#     name='El_Roi',
+#     version='1.2.3',
+#     description="Recognize faces from Python or from the command line",
+#     long_description=readme + '\n\n' + history,
+#     author="Christopher David",
+#     author_email='chris.dj.sam@gmail.com',
+#     url='https://github.com/chrisdjsam/El-Roi.git',
+#     packages=[
+#         'El_Roi',
+#     ],
+#     package_dir={'El_Roi',},
+#     package_data={},
+#     entry_points={
+#         'console_scripts': [
+#             'imageparser=roi_server_api:main'
+#         ]
+#     },
+#     install_requires=requirements,
+#     license="MIT license",
+#     zip_safe=False,
+#     keywords='face_recognition',
+#     classifiers=[
+#         'Development Status :: 1 - Beta',
+#         'Intended Audience :: ',
+#         'License :: OSI Approved :: MIT License',
+#         'Natural Language :: English',
+#         'Programming Language :: Python :: 3.4'
+#     ],
+#     test_suite='',
+#     tests_require=test_requirements
+# )
+
+setuptools.setup()
