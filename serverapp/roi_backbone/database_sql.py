@@ -5,7 +5,7 @@ import queue as Queue
 import MySQLdb as mysql
 from MySQLdb.cursors import DictCursor
 
-from roi_backbone.database import Database
+from ElRoiApp.roi_backbone.database import Database
 
 
 class SQLDatabase(Database):

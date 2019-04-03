@@ -1,5 +1,5 @@
 # openCV
-#import cv2
+import cv2
 # for numpy arrays
 import numpy as np
 #import dlib
@@ -8,7 +8,9 @@ import os
 import sys, json
 import uuid
 import time
-import urllib
+
+import roi_backbone.external_api as ccb
+
 # connecting to the database
 # create a El-Roi instance
 from roi_backbone import ElRoi
@@ -22,15 +24,20 @@ roi = ElRoi(config)
 def insertmember(member_firstname, member_lastname, member_phone, member_email):
 
     params = (member_firstname, member_lastname)
-    memberid = ""
+    externalid = ccb.get_external_id(member_firstname, member_lastname)
     memberid = roi.db.get_member_by_name(params)
-  
+    id = 0
     if(memberid == ""):
+        print("Member is Not Found : Creating a record")
         memberid = str(uuid.uuid4())
-        params = (member_firstname, member_lastname, member_email, member_phone, personid)
-        roi.db.insert_member(params)
+        params = (member_firstname, member_lastname, member_email, member_phone, personid, externalid)
+        id = roi.db.insert_member(params)
+    else:
+        print("Member is Found : Adding external ID")
+        params = (externalid, memberid)
+        roi.db.update_member_external_id(params)
    
-    return memberid
+    return id, memberid
 
 while(True):
     # Build the DB with the members.
@@ -40,14 +47,14 @@ while(True):
     member_email = input("Enter member's << email address >> : ")
     member_phone = input("Enter member's << phone number >> : ")
     params = (member_firstname, member_lastname, member_phone, member_email)
-    # calling the sqlite3 database
-    memberid = insertmember(member_firstname, member_lastname, member_phone, member_email)
+    # calling the mysql database
+    id, memberid = insertmember(member_firstname, member_lastname, member_phone, member_email)
 
     cap = cv2.VideoCapture(0)
     detector = dlib.get_frontal_face_detector()
 
     # creating the person or member folder
-    folderName = "knn_training_model/training_dataset/" + str(memberid) + '_' + member_firstname
+    folderName = "knn_training_model/training_dataset/" + str(id) + '_' + str(memberid) + '_' + member_firstname
     folderPath = os.path.join(os.path.dirname(
         os.path.realpath(__file__)), folderName)
     if not os.path.exists(folderPath):
@@ -88,10 +95,9 @@ while(True):
     cv2.destroyAllWindows()
     print('{} - Member has been added - {}'.format(member_firstname, memberid) )
     print('-' * 40)
-    #  quit!
+     quit!
     isContinue = input("Would you like to add more (y/n) ? : ")
     if(isContinue == 'n'):
         break
 
-# close db
-#connect.close()
+

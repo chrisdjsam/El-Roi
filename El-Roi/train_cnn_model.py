@@ -1,5 +1,5 @@
 import io
-import face_recognition.api as face_recognition
+import roi_backbone.api as face_recognition
 import cv2
 import os
 import re
@@ -14,7 +14,7 @@ import os.path
 # create a El-Roi instance
 from roi_backbone import ElRoi
 # load config from a JSON file (or anything outputting a python dictionary)
-with open("roi.conf") as f:
+with open("../roi.conf") as f:
     config = json.load(f)
 
 roi = ElRoi(config)
@@ -27,7 +27,7 @@ def insertmember(member_firstname, member_lastname, member_face_encoding):
     personid = roi.db.get_member_by_name(params)
     if(personid == ""):
         personid = str(uuid.uuid4())
-        params = (member_firstname, member_lastname, "", "", personid)
+        params = (member_firstname, member_lastname, "", "", personid,'')
         roi.db.insert_member(params)
    
     if(personid != ""):

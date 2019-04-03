@@ -1,6 +1,7 @@
 import requests
 import json, time
 import cv2, dlib
+import logging
 
 # detect image in from the frame
 detector = dlib.get_frontal_face_detector()
@@ -9,7 +10,6 @@ detector = dlib.get_frontal_face_detector()
 with open("roi.webserver.conf") as f:
     config = json.load(f)
 
-print(config)
 #prepare the endpoint
 addr = config['postimage']['address']
 api_endpoint = addr + config['postimage']['uri']
@@ -35,8 +35,8 @@ while True:
     dets = detector(rgb_small_frame, 1)
     
     if(len(dets) == 0):
-        print("No faces are in the frame; detected = " + str(len(dets)))
-        time.sleep(10)
+        logging.debug("No faces are in the frame; detected = " + str(len(dets)))
+        time.sleep(1)
         continue
     # for i, d in enumerate(dets):
     #     print("detected {} and d {}".format(i,d))
@@ -51,7 +51,7 @@ while True:
         response = requests.post(api_endpoint, data=img_encoded.tostring(), headers=headers)
         # decode response
         print (response.text)
-
+        logging.info(response.text)
     process_this_frame = not process_this_frame
     
     # Hit 'q' on the keyboard to quit!
@@ -63,16 +63,3 @@ while True:
 video_capture.release()
 cv2.destroyAllWindows()
 
-# upload the captured frame for parsing
-def sendpictureframe(img_encoded):
-    addr = 'http://localhost:5001'
-    api_endpoint = addr + '/api/imageparser'
-
-    # prepare headers for http request
-    content_type = 'image/jpeg'
-    headers = {'content-type': content_type}
-
-    # send http request with image and receive response
-    response = requests.post(api_endpoint, data=img_encoded.tostring(), headers=headers)
-    # decode response
-    print (json.loads(response.text))
